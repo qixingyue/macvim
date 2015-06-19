@@ -20,6 +20,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'php.vim-html-enhanced' 
 Plugin 'bling/vim-airline'
 Plugin 'fugitive.vim'
+Plugin 'elzr/vim-json'
 call vundle#end()
 
 filetype plugin indent on  
