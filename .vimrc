@@ -1,17 +1,18 @@
 set nu
 syntax on
-set tabstop=2
-set nowrap
+set tabstop=4
+
+set hlsearch   
+set incsearch " increment search
+set showmatch " when keyup the right ) the left ( bright
+set background=dark
 
 set nocompatible
 filetype on
 filetype off
 set rtp+=~/.vim/bundle/vundle
 let path='~/.vim/bundleplugins'
-
-"call vundle#begin(path)
 call vundle#rc(path)
-"call vundle#runtime_append_all_bundles
 
 Plugin 'gmarik/vundle'
 Plugin 'Emmet.vim'
@@ -21,6 +22,10 @@ Plugin 'php.vim-html-enhanced'
 Plugin 'bling/vim-airline'
 Plugin 'fugitive.vim'
 Plugin 'elzr/vim-json'
+Plugin 'matchit.zip'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+
 call vundle#end()
 
 filetype plugin indent on  
@@ -35,3 +40,40 @@ function PHPFuncList()
 				set dictionary+=~/.vim/dict/php_funclist
 				set complete-=k complete+=k
 endfunction
+
+colorscheme solarized
+"colorscheme blue
+""colorscheme darkblue
+""colorscheme default
+""colorscheme delek
+""colorscheme desert
+"colorscheme elflord
+""colorscheme evening
+"colorscheme koehler
+""colorscheme morning
+""colorscheme murphy
+"colorscheme pablo
+""colorscheme peachpuff
+"colorscheme ron
+""colorscheme shine
+"colorscheme slate
+"colorscheme torte
+""colorscheme zellner
+
+"保存时检测php文件的语法
+autocmd BufWritePost *.php call PHPSyntaxCheck()
+
+if !exists('g:PHP_SYNTAX_CHECK_BIN')
+    let g:PHP_SYNTAX_CHECK_BIN = 'php'
+endif
+
+function! PHPSyntaxCheck()
+    let result = system(g:PHP_SYNTAX_CHECK_BIN.' -l -n '.expand('%'))
+    if (stridx(result, 'No syntax errors detected') == -1)
+        echohl WarningMsg | echo result | echohl None
+    endif
+endfunction
+
+set modifiable
+
+"autocmd vimenter * NERDTree
