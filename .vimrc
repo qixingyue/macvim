@@ -2,6 +2,8 @@ set nu
 syntax on
 set tabstop=4
 
+let g:airline_theme='serene'
+
 set hlsearch   
 set incsearch " increment search
 set showmatch " when keyup the right ) the left ( bright
@@ -16,15 +18,18 @@ call vundle#rc(path)
 
 Plugin 'gmarik/vundle'
 Plugin 'Emmet.vim'
-Plugin 'AutoComplPop'
 Plugin 'scrooloose/nerdtree' 
 Plugin 'php.vim-html-enhanced' 
 Plugin 'bling/vim-airline'
 Plugin 'fugitive.vim'
 Plugin 'elzr/vim-json'
 Plugin 'matchit.zip'
-Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
+
+Plugin 'lookupfile' 
+Plugin 'genutils' 
+Bundle 'bufexplorer.zip'
+Bundle 'neocomplcache'
 
 call vundle#end()
 
@@ -41,10 +46,10 @@ function PHPFuncList()
 				set complete-=k complete+=k
 endfunction
 
-colorscheme solarized
+""colorscheme solarized
 "colorscheme blue
 ""colorscheme darkblue
-""colorscheme default
+colorscheme default
 ""colorscheme delek
 ""colorscheme desert
 "colorscheme elflord
@@ -76,4 +81,10 @@ endfunction
 
 set modifiable
 
-"autocmd vimenter * NERDTree
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+let g:LookupFile_TagExpr = '"./filenametags"' 
+let g:LookupFile_PreserveLastPattern = 0 
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_auto_select = 1
