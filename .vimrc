@@ -92,3 +92,12 @@ function GMakecode(tplName)
 endfunction
 com -nargs=* Makecode call GMakecode(<f-args>)
 
+function GRunPython()
+	execute join(["!", "/usr/bin/env python ",bufname("%") ])
+endfunction
+
+function PythonFuncList()
+	com -nargs=* RunPython call GRunPython()
+	nmap  <F5> :call GRunPython() <CR>
+endfunction
+au FileType python call PythonFuncList()
