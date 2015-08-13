@@ -87,17 +87,17 @@ let g:mapleader = ','
 
 function GMakecode(tplName)
 	execute "w"
-	execute join(["!", "/Users/xingyue/.vim/bin/born.py ",a:tplName," ",bufname("%") ])
+	execute join(["!", "clear && /Users/xingyue/.vim/bin/born.py ",a:tplName," ",bufname("%") ])
 	execute "e"
 endfunction
 com -nargs=* Makecode call GMakecode(<f-args>)
 
 function GRunPython()
-	execute join(["!", "/usr/bin/env python ",bufname("%") ])
+	execute join(["!", " clear && /usr/bin/env python ",bufname("%") ])
 endfunction
 
 function PythonFuncList()
-	com -nargs=* RunPython call GRunPython()
+	com! -nargs=* RunPython call GRunPython()
 	nmap  <F5> :call GRunPython() <CR>
 endfunction
 au FileType python call PythonFuncList()
