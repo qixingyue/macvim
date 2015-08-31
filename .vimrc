@@ -2,7 +2,6 @@ set nu
 syntax on
 set tabstop=2
 set shiftwidth=2
-
 let g:airline_theme='serene'
 
 set hlsearch   
@@ -13,6 +12,9 @@ set background=dark
 set nocompatible
 filetype on
 filetype off
+
+
+
 let path='~/.vim/bundleplugins'
 set rtp+=~/.vim/bundle/vundle
 call vundle#rc(path)
@@ -93,11 +95,19 @@ endfunction
 com -nargs=* Makecode call GMakecode(<f-args>)
 
 function GRunPython()
+	execute "w"
 	execute join(["!", " clear && /usr/bin/env python ",bufname("%") ])
 endfunction
 
 function PythonFuncList()
 	com! -nargs=* RunPython call GRunPython()
-	nmap  <F5> :call GRunPython() <CR>
+	nmap  <Leader><F5> :call GRunPython() <CR>
 endfunction
 au FileType python call PythonFuncList()
+
+
+"让vim记忆上次编辑的位置
+autocmd BufReadPost *
+\ if line("'\"")>0&&line("'\"")<=line("$") |
+\	exe "normal g'\"" |
+\ endif
