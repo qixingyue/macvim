@@ -24,8 +24,11 @@ def renderJson(tplContent,jsonObj):
 	return tplContent % jsonObj
 
 def simpleReplace(content):
+	content = content.replace("%","__BORNPERCENT__")
 	m = re.compile("\$([a-zA-Z]+)(\s?)")
-	return re.sub(m,"%(\\1)s\\2",content)
+	content = re.sub(m,"%(\\1)s\\2",content)
+	content = content.replace("($)","$")
+	return content
 
 def isFileEmpty(fileName):
 	f = open(fileName,"r")
@@ -44,6 +47,7 @@ def bornOneCodeFile(tplName,jsonFileName,aimFile):
 		robj = jsonObj(jsonFileName)
 		tplPre = simpleReplace(tplContent)
 		realContent = renderJson(tplPre,robj)
+		realContent = realContent.replace("__BORNPERCENT__","%")
 		f = open(aimFile,"w")
 		f.writelines(realContent)
 		f.close()
