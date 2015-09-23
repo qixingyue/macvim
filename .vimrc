@@ -23,13 +23,14 @@ Plugin 'Emmet.vim'
 Plugin 'scrooloose/nerdtree' 
 Plugin 'bling/vim-airline'
 Plugin 'fugitive.vim'
-Plugin 'python.vim'
+Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'matchit.zip'
 Plugin 'lookupfile' 
 Plugin 'genutils' 
 Plugin 'bufexplorer.zip'
 Plugin 'neocomplcache'
 Plugin 'The-NERD-Commenter'
+Plugin 'fatih/vim-go'
 call vundle#end()
 
 filetype plugin indent on  
