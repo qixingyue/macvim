@@ -9,11 +9,10 @@ set incsearch " increment search
 set showmatch " when keyup the right ) the left ( bright
 set background=dark
 
+"set cursorline
 set nocompatible
 filetype on
 filetype off
-
-
 
 let path='~/.vim/bundleplugins'
 set rtp+=~/.vim/bundle/vundle
@@ -31,6 +30,7 @@ Plugin 'bufexplorer.zip'
 Plugin 'neocomplcache'
 Plugin 'The-NERD-Commenter'
 Plugin 'fatih/vim-go'
+Plugin 'walm/jshint.vim'
 call vundle#end()
 
 filetype plugin indent on  
@@ -65,6 +65,7 @@ colorscheme default
 
 "保存时检测php文件的语法
 autocmd BufWritePost *.php call PHPSyntaxCheck()
+"autocmd BufWritePost *.js JSHint
 
 if !exists('g:PHP_SYNTAX_CHECK_BIN')
     let g:PHP_SYNTAX_CHECK_BIN = 'php'
@@ -81,6 +82,13 @@ set modifiable
 
 "autocmd StdinReadPre * let s:std_in=1
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+au filetype javascript map <F5> <ESC> :JSHint<CR>
+
+function SaveLastVimFile()
+	execute join(["!", "/bin/sh -c '", " echo $(pwd)" , bufname("%") , "  > /Users/xingyue/.vim/lastvimfile" , "'"])
+endfunction
+
+autocmd VimEnter * if argc() == 1 | call SaveLastVimFile() | endif
 
 let g:LookupFile_TagExpr = '"./filenametags"' 
 let g:LookupFile_PreserveLastPattern = 0 
@@ -105,7 +113,6 @@ function PythonFuncList()
 	nmap  <Leader><F5> :call GRunPython() <CR>
 endfunction
 au FileType python call PythonFuncList()
-
 
 "让vim记忆上次编辑的位置
 autocmd BufReadPost *
